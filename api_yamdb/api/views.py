@@ -1,27 +1,29 @@
 import random
 
-from api_yamdb.api_yamdb.settings import DEFAULT_FROM_EMAIL
-from api_yamdb.core.views import CreateListDestroyModelMixinSet
 from django.core.mail import send_mail
 from django.db import IntegrityError
 from django.db.models import Avg
 from django_filters.rest_framework.backends import DjangoFilterBackend
-from rest_framework import viewsets, generics, filters
+from rest_framework import filters, generics, viewsets
 from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.pagination import LimitOffsetPagination
-from rest_framework.permissions import (AllowAny, IsAuthenticatedOrReadOnly,
-                                        IsAuthenticated, SAFE_METHODS)
+from rest_framework.permissions import (SAFE_METHODS, AllowAny,
+                                        IsAuthenticated,
+                                        IsAuthenticatedOrReadOnly)
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
-from api_yamdb.reviews.models import Title, Genre, Category, Review, User
+
+from api_yamdb.api_yamdb.settings import DEFAULT_FROM_EMAIL
+from api_yamdb.core.views import CreateListDestroyModelMixinSet
+from api_yamdb.reviews.models import Category, Genre, Review, Title, User
 
 from .filters import TitleFilter
-from .permissions import IsAdmin, IsAuthorOrStaffOrReadOnly, IsAdminOrReadOnly
-from .serializers import (ReadTitleSerializer, CommentsSerializer,
-                          GenreSerializer, CategorySerializer,
-                          ReviewsSerializer, WriteTitleSerializer,
-                          UserSerializer, EditProfileSerializer,
-                          RegistrationSerializer, TokenSerializer)
+from .permissions import IsAdmin, IsAdminOrReadOnly, IsAuthorOrStaffOrReadOnly
+from .serializers import (CategorySerializer, CommentsSerializer,
+                          EditProfileSerializer, GenreSerializer,
+                          ReadTitleSerializer, RegistrationSerializer,
+                          ReviewsSerializer, TokenSerializer, UserSerializer,
+                          WriteTitleSerializer)
 
 OK = 200
 BAD_REQUEST = 400
