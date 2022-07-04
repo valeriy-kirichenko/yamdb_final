@@ -23,6 +23,8 @@ from .serializers import (CategorySerializer, CommentsSerializer,
                           ReviewsSerializer, TokenSerializer, UserSerializer,
                           WriteTitleSerializer)
 
+from ..api_yamdb.settings import DEFAULT_FROM_EMAIL
+
 OK = 200
 BAD_REQUEST = 400
 METHOD_NOT_ALLOWED = 405
@@ -77,10 +79,10 @@ def registration(request):
     user.confirmation_code = confirmation_code
     user.save()
     send_mail(
-        subject='Registration.',
-        message=f'Your code: {confirmation_code}',
-        recipient_list=[user.email],
-        fail_silently=False,
+        'Registration.',
+        f'Your code: {confirmation_code}',
+        DEFAULT_FROM_EMAIL,
+        [user.email],
     )
     return Response(serializer.data, status=OK)
 
