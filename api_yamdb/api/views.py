@@ -22,7 +22,6 @@ from .serializers import (CategorySerializer, CommentsSerializer,
                           ReadTitleSerializer, RegistrationSerializer,
                           ReviewsSerializer, TokenSerializer, UserSerializer,
                           WriteTitleSerializer)
-
 from ..api_yamdb.settings import DEFAULT_FROM_EMAIL
 
 OK = 200
