@@ -81,7 +81,6 @@ def registration(request):
     send_mail(
         subject='Registration.',
         message=f'Your code: {confirmation_code}',
-        from_email=DEFAULT_FROM_EMAIL,
         recipient_list=[user.email],
         fail_silently=False,
     )

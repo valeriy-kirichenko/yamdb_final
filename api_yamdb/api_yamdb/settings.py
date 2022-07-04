@@ -120,8 +120,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 AUTH_USER_MODEL = 'reviews.User'
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
-DEFAULT_FROM_EMAIL = 'help@yamdb.com'
+EMAIL_HOST = 'smtp.yandex.com'
+EMAIL_HOST_USER = 'api-yamdb-practicum@yandex.ru'
+EMAIL_HOST_PASSWORD = 'zkv8*%28fmZgh),'
+EMAIL_PORT = 465
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'api-yamdb-practicum@yandex.ru'
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
