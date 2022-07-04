@@ -1,6 +1,5 @@
 import random
 
-from core.views import CreateListDestroyModelMixinSet
 from django.core.mail import send_mail
 from django.db import IntegrityError
 from django.db.models import Avg
@@ -13,8 +12,11 @@ from rest_framework.permissions import (SAFE_METHODS, AllowAny,
                                         IsAuthenticatedOrReadOnly)
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
+
+from core.views import CreateListDestroyModelMixinSet
 from reviews.models import Category, Genre, Review, Title, User
 
+from ..api_yamdb.settings import DEFAULT_FROM_EMAIL
 from .filters import TitleFilter
 from .permissions import IsAdmin, IsAdminOrReadOnly, IsAuthorOrStaffOrReadOnly
 from .serializers import (CategorySerializer, CommentsSerializer,
@@ -22,7 +24,6 @@ from .serializers import (CategorySerializer, CommentsSerializer,
                           ReadTitleSerializer, RegistrationSerializer,
                           ReviewsSerializer, TokenSerializer, UserSerializer,
                           WriteTitleSerializer)
-from ..api_yamdb.settings import DEFAULT_FROM_EMAIL
 
 OK = 200
 BAD_REQUEST = 400
