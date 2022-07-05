@@ -6,7 +6,6 @@ from reviews.models import (Category, Comments, Genre, Review, Title,
 
 from api_yamdb.settings import BASE_DIR
 
-
 FILES = [
     f'{BASE_DIR}\\static\\data\\category.csv',
     f'{BASE_DIR}\\static\\data\\titles.csv',
