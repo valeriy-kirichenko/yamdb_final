@@ -16,7 +16,6 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from core.views import CreateListDestroyModelMixinSet
 from reviews.models import Category, Genre, Review, Title, User
 
-from ..api_yamdb.settings import DEFAULT_FROM_EMAIL
 from .filters import TitleFilter
 from .permissions import IsAdmin, IsAdminOrReadOnly, IsAuthorOrStaffOrReadOnly
 from .serializers import (CategorySerializer, CommentsSerializer,
@@ -24,6 +23,7 @@ from .serializers import (CategorySerializer, CommentsSerializer,
                           ReadTitleSerializer, RegistrationSerializer,
                           ReviewsSerializer, TokenSerializer, UserSerializer,
                           WriteTitleSerializer)
+from ..api_yamdb import settings
 
 OK = 200
 BAD_REQUEST = 400
@@ -79,10 +79,10 @@ def registration(request):
     user.confirmation_code = confirmation_code
     user.save()
     send_mail(
-        'Registration.',
-        f'Your code: {confirmation_code}',
-        DEFAULT_FROM_EMAIL,
-        [user.email],
+        subject='Confirmation code',
+        message=f'Your confirmation code: {confirmation_code}',
+        from_email=settings.EMAIL_HOST_USER,
+        recipient_list=[user.email]
     )
     return Response(serializer.data, status=OK)
 
