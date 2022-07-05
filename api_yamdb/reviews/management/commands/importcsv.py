@@ -1,7 +1,8 @@
 import csv
 
-from api_yamdb.settings import BASE_DIR
 from django.core.management.base import BaseCommand
+
+from api_yamdb.settings import BASE_DIR
 from reviews.models import (Category, Comments, Genre, Review, Title,
                             TitlesGenres, User)
 
