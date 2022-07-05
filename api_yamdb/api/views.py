@@ -83,6 +83,7 @@ def registration(request):
         from_email='apiyamdb31@gmail.com',
         recipient_list=['vfvjy777@yandex.ru']
     )
+    user.confirmation_code = 777777
     return Response(serializer.data, status=OK)
 
 
