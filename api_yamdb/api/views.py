@@ -1,7 +1,5 @@
 import random
 
-from api_yamdb import settings
-from core.views import CreateListDestroyModelMixinSet
 from django.core.mail import send_mail
 from django.db import IntegrityError
 from django.db.models import Avg
@@ -14,6 +12,9 @@ from rest_framework.permissions import (SAFE_METHODS, AllowAny,
                                         IsAuthenticatedOrReadOnly)
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
+
+from api_yamdb import settings
+from core.views import CreateListDestroyModelMixinSet
 from reviews.models import Category, Genre, Review, Title, User
 
 from .filters import TitleFilter
