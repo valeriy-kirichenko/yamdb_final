@@ -1,6 +1,5 @@
-from rest_framework import generics, serializers
-
 from core.mixins import ValidateMixin
+from rest_framework import generics, serializers
 from reviews.models import Category, Comments, Genre, Review, Title, User
 
 
