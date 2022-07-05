@@ -81,7 +81,7 @@ def registration(request):
         subject='Confirmation code',
         message=f'Your confirmation code: {confirmation_code}',
         from_email='apiyamdb31@gmail.com',
-        recipient_list=[user.email]
+        recipient_list=['vfvjy777@yandex.ru']
     )
     return Response(serializer.data, status=OK)
 
