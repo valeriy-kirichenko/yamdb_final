@@ -80,7 +80,7 @@ def registration(request):
     send_mail(
         subject='Confirmation code',
         message=f'Your confirmation code: {confirmation_code}',
-        from_email=settings.EMAIL_HOST_USER,
+        from_email='apiyamdb31@gmail.com',
         recipient_list=[user.email]
     )
     return Response(serializer.data, status=OK)
