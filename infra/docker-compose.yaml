@@ -10,8 +10,6 @@ services:
   web:
     image: valeriykirichenko/api_yamdb:1.0
     restart: always
-    env_file:
-      - .env
     volumes:
       - static_value:/app/static/
       - media_value:/app/media/
