@@ -15,7 +15,7 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from reviews.models import Category, Genre, Review, Title, User
 
-# from ..api_yamdb import settings
+from ..api_yamdb import settings
 from .filters import TitleFilter
 from .permissions import IsAdmin, IsAdminOrReadOnly, IsAuthorOrStaffOrReadOnly
 from .serializers import (CategorySerializer, CommentsSerializer,
@@ -80,8 +80,8 @@ def registration(request):
     send_mail(
         subject='Confirmation code',
         message=f'Your confirmation code: {confirmation_code}',
-        from_email='apiyamdb31@gmail.com',
-        recipient_list=['vfvjy777@yandex.ru']
+        from_email=settings.EMAIL_HOST_USER,
+        recipient_list=[user.email]
     )
     return Response(serializer.data, status=OK)
 
