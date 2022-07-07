@@ -53,14 +53,13 @@ jobs:
     if: github.ref == 'refs/heads/master'
     steps:
       - name: executing remote ssh commands to deploy
-        env:
-          SECRET_KEY: ${{ secrets.SECRET_KEY }}
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
           script: |
             sudo docker-compose stop
             sudo docker-compose rm web
