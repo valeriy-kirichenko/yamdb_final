@@ -59,7 +59,6 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
-          SECRET_KEY: ${{ secrets.SECRET_KEY }}
           script: |
             sudo docker-compose stop
             sudo docker-compose rm web
@@ -73,6 +72,7 @@ jobs:
             echo EMAIL_HOST=${{ secrets.EMAIL_HOST }} >> .env
             echo EMAIL_HOST_USER=${{ secrets.EMAIL_HOST_USER }} >> .env
             echo EMAIL_HOST_PASSWORD=${{ secrets.EMAIL_HOST_PASSWORD }} >> .env
+            echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
             sudo docker-compose up -d
             sudo docker-compose exec -T web python manage.py makemigrations
             sudo docker-compose exec -T web python manage.py migrate
