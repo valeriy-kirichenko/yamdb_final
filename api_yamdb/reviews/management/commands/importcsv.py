@@ -7,13 +7,13 @@ from reviews.models import (Category, Comments, Genre, Review, Title,
 from api_yamdb.settings import BASE_DIR
 
 FILES = [
-    f'{BASE_DIR}\\static\\data\\category.csv',
-    f'{BASE_DIR}\\static\\data\\titles.csv',
-    f'{BASE_DIR}\\static\\data\\genre.csv',
-    f'{BASE_DIR}\\static\\data\\genre_title.csv',
-    f'{BASE_DIR}\\static\\data\\users.csv',
-    f'{BASE_DIR}\\static\\data\\review.csv',
-    f'{BASE_DIR}\\static\\data\\comments.csv',
+    BASE_DIR + r'\static\data\category.csv',
+    BASE_DIR + r'\static\data\titles.csv',
+    BASE_DIR + r'\static\data\genre.csv',
+    BASE_DIR + r'\static\data\genre_title.csv',
+    BASE_DIR + r'\static\data\users.csv',
+    BASE_DIR + r'\static\data\review.csv',
+    BASE_DIR + r'\static\data\comments.csv',
 ]
 
 
