@@ -1,6 +1,5 @@
 import random
 
-from core.pagination import CustomPagination
 from core.views import CreateListDestroyModelMixinSet
 from django.core.mail import send_mail
 from django.db import IntegrityError
@@ -8,6 +7,7 @@ from django.db.models import Avg
 from django_filters.rest_framework.backends import DjangoFilterBackend
 from rest_framework import filters, generics, viewsets
 from rest_framework.decorators import action, api_view, permission_classes
+from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.permissions import (SAFE_METHODS, AllowAny,
                                         IsAuthenticated,
                                         IsAuthenticatedOrReadOnly)
@@ -38,7 +38,7 @@ class UserViewSet(viewsets.ModelViewSet):
     lookup_field = 'username'
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    paginathion_class = (CustomPagination,)
+    paginathion_class = (LimitOffsetPagination,)
     permission_classes = (IsAdmin,)
 
     @action(
@@ -106,7 +106,7 @@ def get_token(request):
 class TitlesViewSet(viewsets.ModelViewSet):
     queryset = Title.objects.annotate(rating=Avg('reviews__score'))
     permission_classes = (IsAuthenticatedOrReadOnly, IsAdminOrReadOnly)
-    paginathion_class = (CustomPagination,)
+    paginathion_class = (LimitOffsetPagination,)
     filter_backends = (
         DjangoFilterBackend,
         filters.SearchFilter,
@@ -124,7 +124,7 @@ class TitlesViewSet(viewsets.ModelViewSet):
 
 class CategoriesGenresViewSet(CreateListDestroyModelMixinSet):
     permission_classes = (IsAdminOrReadOnly,)
-    paginathion_class = (CustomPagination,)
+    paginathion_class = (LimitOffsetPagination,)
     filter_backends = (filters.SearchFilter,)
     search_fields = ('name',)
     lookup_field = 'slug'

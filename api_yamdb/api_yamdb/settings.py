@@ -134,7 +134,7 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
 
-    'DEFAULT_PAGINATION_CLASS': 'core.pagination.CustomPagination',
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 5,
 
     'DEFAULT_PERMISSION_CLASSES': [
