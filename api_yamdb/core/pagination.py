@@ -2,7 +2,7 @@ import socket
 from urllib import parse
 
 from django.utils.encoding import force_str
-from rest_framework.pagination import PageNumberPagination
+from rest_framework.pagination import LimitOffsetPagination
 
 
 def replace_query_param(url, key, val):
@@ -25,10 +25,7 @@ def remove_query_param(url, key):
     return parse.urlunsplit((scheme, netloc, path, query, fragment))
 
 
-class CustomPagination(PageNumberPagination):
-    page_size = 1000
-    page_size_query_param = 'per_page'
-    max_page_size = 1000
+class CustomPagination(LimitOffsetPagination):
 
     def get_next_link(self):
         if not self.page.has_next():
