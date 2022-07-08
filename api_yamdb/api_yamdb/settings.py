@@ -134,7 +134,7 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
 
-    'DEFAULT_PAGINATION_CLASS': 'api_yamdb.core.pagination.CustomPagination',
+    'DEFAULT_PAGINATION_CLASS': 'core.pagination.CustomPagination',
     'PAGE_SIZE': 5,
 
     'DEFAULT_PERMISSION_CLASSES': [
