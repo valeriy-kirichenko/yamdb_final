@@ -28,17 +28,24 @@ def remove_query_param(url, key):
 class CustomPagination(LimitOffsetPagination):
 
     def get_next_link(self):
-        if not self.page.has_next():
+        if self.offset + self.limit >= self.count:
             return None
+
         url = self.request.build_absolute_uri()
-        page_number = self.page.next_page_number()
-        return replace_query_param(url, self.page_query_param, page_number)
+        url = replace_query_param(url, self.limit_query_param, self.limit)
+
+        offset = self.offset + self.limit
+        return replace_query_param(url, self.offset_query_param, offset)
 
     def get_previous_link(self):
-        if not self.page.has_previous():
+        if self.offset <= 0:
             return None
+
         url = self.request.build_absolute_uri()
-        page_number = self.page.previous_page_number()
-        if page_number == 1:
-            return remove_query_param(url, self.page_query_param)
-        return replace_query_param(url, self.page_query_param, page_number)
+        url = replace_query_param(url, self.limit_query_param, self.limit)
+
+        if self.offset - self.limit <= 0:
+            return remove_query_param(url, self.offset_query_param)
+
+        offset = self.offset - self.limit
+        return replace_query_param(url, self.offset_query_param, offset)
