@@ -1,4 +1,4 @@
-import socket
+import requests
 from urllib import parse
 
 from django.utils.encoding import force_str
@@ -8,7 +8,7 @@ from rest_framework.pagination import LimitOffsetPagination
 def replace_query_param(url, key, val):
     (scheme, netloc, path, query, fragment) = parse.urlsplit(force_str(url))
     scheme = "http"
-    netloc = socket.gethostbyname(socket.gethostname())
+    netloc = requests.request('GET', 'http://myip.dnsomatic.com').text
     query_dict = parse.parse_qs(query, keep_blank_values=True)
     query_dict[force_str(key)] = [force_str(val)]
     query = parse.urlencode(sorted(list(query_dict.items())), doseq=True)
@@ -18,7 +18,7 @@ def replace_query_param(url, key, val):
 def remove_query_param(url, key):
     (scheme, netloc, path, query, fragment) = parse.urlsplit(force_str(url))
     scheme = "http"
-    netloc = socket.gethostbyname(socket.gethostname())
+    netloc = requests.request('GET', 'http://myip.dnsomatic.com').text
     query_dict = parse.parse_qs(query, keep_blank_values=True)
     query_dict.pop(key, None)
     query = parse.urlencode(sorted(list(query_dict.items())), doseq=True)
