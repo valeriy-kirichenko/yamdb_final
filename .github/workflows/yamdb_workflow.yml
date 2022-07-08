@@ -62,7 +62,7 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
             sudo docker-compose stop
-            sudo docker-compose rm vfvjy777_web_1
+            sudo docker container rm vfvjy777_web_1
             sudo docker image rm valeriykirichenko/api_yamdb:1.0
             touch .env
             echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
