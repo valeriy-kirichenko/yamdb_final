@@ -1,6 +1,5 @@
 import random
 
-from api_yamdb import settings
 from core.pagination import CustomPagination
 from core.views import CreateListDestroyModelMixinSet
 from django.core.mail import send_mail
