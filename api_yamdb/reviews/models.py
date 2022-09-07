@@ -4,16 +4,22 @@ from django.db import models
 
 from .validators import year_validator
 
+ROLES = ('admin', 'Admin'), ('moderator', 'Moderator'), ('user', 'User')
+
 
 class User(AbstractUser):
-    """Пользователи"""
-    ADMIN = 'admin'
-    MODERATOR = 'moderator'
-    USER = 'user'
-    ROLES = (
-        (ADMIN, 'Admin'),
-        (MODERATOR, 'Moderator'),
-        (USER, 'User'),)
+    """Модель для пользователя.
+
+    Attributes:
+        username (str): имя пользователя.
+        email (str): электронная почта.
+        first_name (str): имя.
+        last_name (str): фамилия.
+        role (str): роль.
+        bio (str): о себе.
+        confirmation_code (str): код подтверждения, для получения токена.
+    """
+
     username = models.CharField(
         'Username',
         max_length=150,
@@ -26,7 +32,7 @@ class User(AbstractUser):
         verbose_name='Роль',
         max_length=max([len(role[0]) for role in ROLES]),
         choices=ROLES,
-        default=USER)
+        default='user')
     bio = models.TextField(verbose_name='О себе', null=True, blank=True, )
     confirmation_code = models.CharField(
         'Секретный код',
@@ -35,10 +41,23 @@ class User(AbstractUser):
 
     @property
     def is_admin(self):
+        """Проверяет является ли пользователь администратором.
+
+        Returns:
+            bool: True если пользователь администратор иначе False.
+        """
+
         return self.role == User.ADMIN or self.is_staff
 
 
 class CategoryGenreModel(models.Model):
+    """Родительская модель для категории/жанра.
+
+    Attributes:
+        name (str): название.
+        slug (str): уникальное название латиницей.
+    """
+
     name = models.CharField(max_length=256, verbose_name='Название')
     slug = models.SlugField(
         max_length=50,
@@ -50,27 +69,50 @@ class CategoryGenreModel(models.Model):
         abstract = True
 
     def __str__(self):
+        """Возвращает строковое представление модели"""
+
         return self.name
 
 
 class Category(CategoryGenreModel):
+    """Модель для категории."""
+
     class Meta:
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
 
 
 class Genre(CategoryGenreModel):
+    """Модель для жанра."""
+
     class Meta:
         verbose_name = 'Жанр'
         verbose_name_plural = 'Жанры'
 
 
 class TitlesGenres(models.Model):
+    """Модель для связи произведений с жанрами.
+
+    Attributes:
+        title (int): id произведения.
+        genre (int): id жанра.
+    """
+
     title = models.ForeignKey('Title', on_delete=models.CASCADE)
     genre = models.ForeignKey('Genre', on_delete=models.CASCADE)
 
 
 class Title(models.Model):
+    """Модель для произведения.
+
+    Attributes:
+        name (str): название произведения.
+        year (int): год произведения.
+        category (int): категория.
+        description (str): описание.
+        genre (int): жанр.
+    """
+
     name = models.TextField(verbose_name='Название произведения')
     year = models.IntegerField(
         verbose_name='Год',
@@ -100,10 +142,20 @@ class Title(models.Model):
         default_related_name = 'titles'
 
     def __str__(self):
+        """Возвращает строковое представление модели"""
+
         return self.name
 
 
 class ReviewCommentModel(models.Model):
+    """Родительская модель для отзыва/комментария.
+
+    Attributes:
+        text (str): текст.
+        author (int): id автора.
+        pub_date (datetime): дата создания.
+    """
+
     text = models.TextField(verbose_name='Текст')
     author = models.ForeignKey(
         User,
@@ -121,10 +173,19 @@ class ReviewCommentModel(models.Model):
         ordering = ('-pub_date',)
 
     def __str__(self):
+        """Возвращает строковое представление модели"""
+
         return self.text[:30]
 
 
 class Review(ReviewCommentModel):
+    """Модель для отзыва.
+
+    Attributes:
+        title (int): id произведения.
+        score (int): оценка.
+    """
+
     title = models.ForeignKey(
         Title,
         on_delete=models.CASCADE,
@@ -153,6 +214,12 @@ class Review(ReviewCommentModel):
 
 
 class Comments(ReviewCommentModel):
+    """Модель для комментария.
+
+    Attributes:
+        review (int): id отзыва.
+    """
+
     review = models.ForeignKey(
         Review,
         on_delete=models.CASCADE,
